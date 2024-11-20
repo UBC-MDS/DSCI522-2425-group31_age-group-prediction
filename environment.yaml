@@ -1,0 +1,37 @@
+name: '522-group31'
+
+channels:
+    - conda-forge
+    - defaults
+dependencies:
+  - python==3.12
+  - ipykernel
+  - matplotlib
+  - pandas
+  - nb_conda_kernels
+  - scikit-learn>=1.5.1
+  - requests
+  - ipython
+  - graphviz
+  - python-graphviz
+  - jinja2
+  - lightgbm
+  - torchvision
+  - torchaudio
+  - plotly
+  - altair-all=5.4.*
+  - scipy
+  - panel
+  - watchfiles
+  - wikipedia
+  - vega_datasets # Example data
+  - pip>=24.2
+  - pip:
+      - mglearn
+      - graphviz
+      - nbformat
+      - nbclient
+      - transformers
+      - datasets
+      - ultralytics
+      - psutil>=5.7.2
