@@ -14,7 +14,7 @@ the >65 age group based on specific features. The model utilizes a supervised ma
 learning algorithm to identify patterns and relationships within the dataset to make accurate predictions.
 
 The dataset used in this project is a subset of the National Health and Nutrition Examination Survey (NHANES) 2013-2014, 
-created by the Centers for Disease Control and Prevention (CDC). This subset was donated on September 21, 2023, 
+created by the Centers for Disease Control and Prevention (CDC). The subset was donated on September 21, 2023, 
 and is designed for predicting respondents' age. The dataset can be found 
 [here](https://archive.ics.uci.edu/dataset/887/national+health+and+nutrition+health+survey+2013-2014+(nhanes)+age+prediction+subset).
 The NHANES dataset collects extensive health and nutritional information from a diverse U.S. population, and this 
