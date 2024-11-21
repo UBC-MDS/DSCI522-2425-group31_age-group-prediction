@@ -36,7 +36,7 @@ run the following from the root of this repository:
 jupyter lab 
 ```
 
-Open `<Analysis>.ipynb` in Jupyter Lab
+Open `age_prediction_report.ipynb` in Jupyter Lab
 and under Switch/Select Kernel choose 
 "Python [conda env:522-group31]".
 
