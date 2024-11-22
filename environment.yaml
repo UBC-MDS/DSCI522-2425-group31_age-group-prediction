@@ -5,6 +5,8 @@ channels:
     - defaults
 dependencies:
   - python==3.12
+  - conda-lock
+  - jupyterlab
   - ipykernel
   - matplotlib
   - pandas
