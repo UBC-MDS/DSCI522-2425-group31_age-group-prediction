@@ -14,7 +14,9 @@ dependencies:
   - scikit-learn>=1.5.1
   - requests
   - altair-all=5.4.*
+  - vegafusion==1.6.9
   - scipy
   - pip>=24.2
   - pip:
       - nbformat
+      - altair_ally>=0.1.1
