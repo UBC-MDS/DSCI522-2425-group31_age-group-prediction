@@ -4,7 +4,7 @@
 
 Copyright (c) 2024
 
-This report (source contained in the [`DSCI-2425-group31` repository](https://github.com/UBC-MDS/DSCI522-2425-group31)) is made available under the **Attribution-NonCommercial-ShareAlike 4.0 International** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)). 
+This report (source contained in the [`DSCI-2425-group31_age-group-prediction` repository](https://github.com/UBC-MDS/DSCI522-2425-group31)) is made available under the **Attribution-NonCommercial-ShareAlike 4.0 International** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)). 
 
 This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
