@@ -9,8 +9,8 @@ British Columbia.
 ## Project Summary
 
 Here we attempt to build a classification model using the Logistic Regression
-algorithm which can predict whether an individual belongs to the <65 age group or 
-the >65 age group based on specific features. The model utilizes a supervised machine 
+algorithm which can predict whether an individual belongs to the senior (≥65 years) age group or 
+the non-senior (<65 years) age group based on specific features. The model utilizes a supervised machine 
 learning algorithm to identify patterns and relationships within the dataset to make accurate predictions.
 
 The dataset used in this project is a subset of the National Health and Nutrition Examination Survey (NHANES) 2013-2014, 
