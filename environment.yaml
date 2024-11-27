@@ -2,10 +2,9 @@ name: '522-group31'
 
 channels:
     - conda-forge
-    - defaults
 dependencies:
-  - python==3.12
-  - conda-lock
+  - python==3.11
+  - pandera=0.20.4
   - jupyterlab
   - ipykernel
   - matplotlib
