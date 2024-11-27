@@ -5,17 +5,17 @@ channels:
 dependencies:
   - python==3.11
   - pandera=0.20.4
-  - jupyterlab
-  - ipykernel
-  - matplotlib
-  - pandas
-  - nb_conda_kernels
+  - jupyterlab=4.3.1
+  - ipykernel=6.29.5
+  - matplotlib=3.9.2
+  - pandas=2.2.3 
+  - nb_conda_kernels=2.5.1
   - scikit-learn>=1.5.1
-  - requests
+  - requests=2.32.3   
   - altair-all=5.4.*
   - vegafusion==1.6.9
-  - scipy
+  - scipy=1.14.1  
   - pip>=24.2
   - pip:
-      - nbformat
+      - nbformat==5.10.4
       - altair_ally>=0.1.1
