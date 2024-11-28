@@ -19,3 +19,4 @@ dependencies:
   - pip:
       - nbformat==5.10.4
       - altair_ally>=0.1.1
+      - deepchecks==0.18.1
