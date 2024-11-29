@@ -1,0 +1,13 @@
+services:
+  # run jupyter notebook inside jupyter 
+  jupyter-notebook:
+    image:  sienkomds/dsci522-2425-group31_age-group-prediction
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/home/jovyan
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+    platform: linux/amd64

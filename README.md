@@ -20,35 +20,64 @@ and is designed for predicting respondents' age. The dataset can be found
 The NHANES dataset collects extensive health and nutritional information from a diverse U.S. population, and this 
 particular subset narrows the focus to selected features hypothesized to correlate strongly with age.
 
-## Usage
-
-First time running the project,
-run the following from the root of this repository:
-
-``` bash
-conda-lock install --name 522-group31 conda-lock.yml
-```
-
-To run the analysis,
-run the following from the root of this repository:
-
-``` bash
-jupyter lab 
-```
-
-Open `age_prediction_report.ipynb` in Jupyter Lab
-and under Switch/Select Kernel choose 
-"Python [conda env:522-group31]".
-
-Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
-
 ## Dependencies
 
+- [Docker](https://www.docker.com/) 
+- [VS Code](https://code.visualstudio.com/download)
+- [VS Code Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+
+## Usage
+
+### Setup
+
+> If you are using Windows or Mac, make sure Docker Desktop is running.
+
+1. Clone this GitHub repository.
+
+### Running the analysis
+
+1. Navigate to the root of this project on your computer using the
+   command line and enter the following command:
+
+``` 
+docker compose up
+```
+
+2. In the terminal, look for a URL that starts with 
+`http://127.0.0.1:8888/lab?token=` 
+(for an example, see the highlighted text in the terminal below). 
+Copy and paste that URL into your browser.
+
+<img src="img/jupyter-container-web-app-launch-url.png" width=400>
+
+### Clean up
+
+- To shut down the container and clean up the resources, 
+type `Cntrl` + `C` in the terminal
+where you launched the container, and then type `docker compose rm`
+
+## Developer notes
+
+### Developer dependencies
 - `conda` (version 23.9.0 or higher)
 - `conda-lock` (version 2.5.7 or higher)
-- `jupyterlab` (version 4.0.0 or higher)
-- `nb_conda_kernels` (version 2.3.1 or higher)
-- Python and packages listed in [`environment.yml`](environment.yml)
+
+### Adding a new dependency
+
+1. Add the dependency to the `environment.yml` file on a new branch.
+
+2. Run `conda-lock -k explicit --file environment.yml -p linux-64` to update the `conda-linux-64.lock` file.
+
+2. Re-build the Docker image locally to ensure it builds and runs properly.
+
+3. Push the changes to GitHub. A new Docker
+   image will be built and pushed to Docker Hub automatically.
+   It will be tagged with the SHA for the commit that changed the file.
+
+4. Update the `docker-compose.yml` file on your branch to use the new
+   container image (make sure to update the tag specifically).
+
+5. Send a pull request to merge the changes into the `main` branch. 
 
 ## License
 
@@ -58,6 +87,3 @@ See [the license file](LICENSE.md) for more information. If
 re-using/re-mixing please provide attribution and link to this webpage.
 The software code contained within this repository is licensed under the
 MIT license. See [the license file](LICENSE.md) for more information.
-
-
-
