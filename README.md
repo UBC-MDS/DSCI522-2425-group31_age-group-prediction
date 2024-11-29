@@ -50,10 +50,6 @@ Copy and paste that URL into your browser.
 
 <img src="img/jupyter-container-web-app-launch-url.png" width=400>
 
-3. To run the analysis,
-open `src/age_prediction_report.ipynb` in Jupyter Lab you just launched
-and under the "Kernel" menu click "Restart Kernel and Run All Cells...".
-
 ### Clean up
 
 - To shut down the container and clean up the resources, 
