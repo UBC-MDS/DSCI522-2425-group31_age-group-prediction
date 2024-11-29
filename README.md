@@ -20,6 +20,12 @@ and is designed for predicting respondents' age. The dataset can be found
 The NHANES dataset collects extensive health and nutritional information from a diverse U.S. population, and this 
 particular subset narrows the focus to selected features hypothesized to correlate strongly with age.
 
+## Dependencies
+
+- [Docker](https://www.docker.com/) 
+- [VS Code](https://code.visualstudio.com/download)
+- [VS Code Jupyter Extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+
 ## Usage
 
 First time running the project,
@@ -42,14 +48,6 @@ and under Switch/Select Kernel choose
 
 Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
 
-## Dependencies
-
-- `conda` (version 23.9.0 or higher)
-- `conda-lock` (version 2.5.7 or higher)
-- `jupyterlab` (version 4.0.0 or higher)
-- `nb_conda_kernels` (version 2.3.1 or higher)
-- Python and packages listed in [`environment.yml`](environment.yml)
-
 ## License
 
 The analysis report contained herein are licensed under the
@@ -58,6 +56,3 @@ See [the license file](LICENSE.md) for more information. If
 re-using/re-mixing please provide attribution and link to this webpage.
 The software code contained within this repository is licensed under the
 MIT license. See [the license file](LICENSE.md) for more information.
-
-
-
