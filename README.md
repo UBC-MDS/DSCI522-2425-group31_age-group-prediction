@@ -28,25 +28,37 @@ particular subset narrows the focus to selected features hypothesized to correla
 
 ## Usage
 
-First time running the project,
-run the following from the root of this repository:
+### Setup
 
-``` bash
-conda-lock install --name 522-group31 conda-lock.yml
+> If you are using Windows or Mac, make sure Docker Desktop is running.
+
+1. Clone this GitHub repository.
+
+### Running the analysis
+
+1. Navigate to the root of this project on your computer using the
+   command line and enter the following command:
+
+``` 
+docker compose up
 ```
 
-To run the analysis,
-run the following from the root of this repository:
+2. In the terminal, look for a URL that starts with 
+`http://127.0.0.1:8888/lab?token=` 
+(for an example, see the highlighted text in the terminal below). 
+Copy and paste that URL into your browser.
 
-``` bash
-jupyter lab 
-```
+<img src="img/jupyter-container-web-app-launch-url.png" width=400>
 
-Open `age_prediction_report.ipynb` in Jupyter Lab
-and under Switch/Select Kernel choose 
-"Python [conda env:522-group31]".
+3. To run the analysis,
+open `src/age_prediction_report.ipynb` in Jupyter Lab you just launched
+and under the "Kernel" menu click "Restart Kernel and Run All Cells...".
 
-Next, under the "Kernel" menu click "Restart Kernel and Run All Cells...".
+### Clean up
+
+1. To shut down the container and clean up the resources, 
+type `Cntrl` + `C` in the terminal
+where you launched the container, and then type `docker compose rm`
 
 ## License
 
