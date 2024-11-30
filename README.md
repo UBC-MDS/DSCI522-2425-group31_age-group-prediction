@@ -42,7 +42,8 @@ particular subset narrows the focus to selected features hypothesized to correla
 ``` 
 docker compose up
 ```
-
+> [!NOTE]
+> [Know Linux Issue](https://github.com/UBC-MDS/DSCI522-2425-group31_age-group-prediction/issues/54#issue-2706604764)
 2. In the terminal, look for a URL that starts with 
 `http://127.0.0.1:8888/lab?token=` 
 (for an example, see the highlighted text in the terminal below). 
