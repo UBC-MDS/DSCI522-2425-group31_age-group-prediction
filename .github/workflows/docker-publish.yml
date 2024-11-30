@@ -8,6 +8,8 @@ name: Publish to DockerHub
 on: 
   workflow_dispatch:
   push: 
+    branches:
+      - main
     paths: 
       - 'Dockerfile'
       - 'conda-linux-64.lock'
