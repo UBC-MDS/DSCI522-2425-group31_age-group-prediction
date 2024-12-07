@@ -1,0 +1,202 @@
+---
+title: Predicting Age from National Health and Nutrition Health Survey 2013-2014
+author: "Ismail (Husain) Bhinderwala, Rashid Mammadov, Sienko Ikhabi, Dongchun Chen"
+date: "2024/12/07"
+jupyter: python3
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        embed-resources: true
+    pdf:
+        toc: true
+        toc-depth: 2
+editor: source
+number-sections: true
+execute:
+  echo: false
+  warning: false
+bibliography: references.bib
+---
+
+```{python}
+# imports
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+import pickle
+import json
+```
+
+```{python}
+# read data
+confusion_df = pd.read_csv("../results/tables/confusion_matrix.csv", index_col = 0)
+confusion_df.rename(columns={'Adult': 'Predicted: Adult', 'Senior': 'Predicted: Senior'}, inplace = True)
+confusion_df.index.names = ['Actual label:']
+
+# Quarto seems to struggle with complex Python expressions
+# extract values to simple params
+classified_correct_total = (
+    confusion_df.loc['Adult', 'Predicted: Adult'] 
+    + confusion_df.loc['Senior', 'Predicted: Senior'])
+classified_correct_adult = confusion_df.loc['Adult', 'Predicted: Adult']
+classified_correct_senior = confusion_df.loc['Senior', 'Predicted: Senior']
+classified_incorrect_total = (
+    confusion_df.loc['Senior', 'Predicted: Adult'] 
+    + confusion_df.loc['Adult', 'Predicted: Senior'])
+
+#metrics
+with open('../results/tables/age_model_report.json', 'rb') as fp:
+    model_test_metrics = json.load(fp)
+
+metrics_df = pd.DataFrame(model_test_metrics).round(3).transpose()
+
+#model
+with open('../results/models/age_prediction_model.pickle', 'rb') as fm:
+    age_prediction_model = pickle.load(fm)
+```
+
+## Summary
+
+In this project, we developed a logistic regression model to classify individuals into two age 
+groups: Senior (65 years and older) and Adult (under 65 years), using various attributes about the individual. 
+The data is from the National Health and Nutrition Examination Survey [@nhanes_age_prediction_subset_887]. The 
+model we developed uses features such as physical and health-related measurements to make predictions. We achieved an 
+overall accuracy of `{python} round(model_test_metrics['accuracy'], 2)` and 
+an F1 score of `{python} round(model_test_metrics['macro avg']['f1-score'], 2)` on the test data. 
+It correctly classified 
+`{python} classified_correct_total` cases; 
+`{python} classified_correct_adult` Adults and 
+`{python} classified_correct_senior` Seniors, 
+but misclassified `{python} classified_incorrect_total` cases. 
+
+## Introduction
+
+Age classification is an important aspect of demographic analysis and health resource planning, particularly when distinguishing between seniors (65 years and older) and non-seniors (under 65 years). Accurate age group identification allows for better-targeted healthcare strategies and more efficient resource allocation. Traditional methods often rely on broad assumptions, which can miss important individual differences. In this project, we investigate whether a machine learning model can classify individuals into these two age groups using physical and health-related measurements.
+
+We used data from the National Health and Nutrition Examination Survey (NHANES) 2013-2014 (@nhanes_age_prediction_subset_887) to develop a logistic regression model for this purpose. Accurately identifying seniors is especially important, as they are more likely to require regular medical care and management of chronic conditions (@lockenhoff2016adult). By enhancing the precision of age classification, this model has the potential to improve healthcare planning and ensure that interventions are better aligned with the needs of different age groups. This study demonstrates how machine learning can be used to tackle real-world challenges in public health and demographic research.
+
+## Methods and Analysis
+
+### Data Preprocessing and EDA
+
+The dataset used for this analysis is the National Health and Nutrition Health Survey 2013-2014 
+(@nhanes_age_prediction_subset_887) Age Prediction Subset. It was obtained from the UCI Machine Learning Repository 
+in ZIP format and extracted for preprocessing. The dataset contains 2,278 entries and 8 features after cleaning 
+and transformations, with the target variable being age_group. Notably, the target variable exhibited an 
+imbalance with two classes: Adult (84%) and Senior (16%).
+
+The data preprocessing involved several steps. Unnecessary columns such as id and age were removed, 
+focusing on features directly relevant to the prediction task. Categorical variables were converted 
+into more interpretable forms: gender was mapped from numeric values (1 for Male, 2 for Female), 
+weekly_physical_activity was mapped to "Yes" and "No," and diabetic was mapped to "Yes," "No," and "Borderline". 
+Additionally, a single erroneous row with the value 7.0 in the weekly_physical_activity column was removed as 
+it did not align with the dataset’s binary format. Descriptive statistics for numerical variables (bmi, 
+blood_glucose_fasting, oral, insulin_level) were calculated to summarize their distributions. The preprocessing 
+was implemented using Python libraries such as NumPy and Pandas (@harris2020array; @mckinney2010data).
+
+Exploratory data analysis (EDA) was performed to better understand the dataset. For numerical features, 
+a correlation analysis was conducted, and the relationships between features were visualized using a 
+heatmap created with Matplotlib (@barrett2005matplotlib). The distribution of categorical features was 
+examined, highlighting imbalances in age_group, gender, diabetic, and weekly_physical_activity. For instance, 
+the diabetic column revealed that most entries were labeled as "No," with only 21 labeled "Yes" 
+and 58 labeled "Borderline."
+
+To address the class imbalance in the target variable, stratified sampling was employed during 
+the train-test split. This ensured that the proportions of the age_group classes were preserved 
+in both training (75%) and testing (25%) datasets. A random seed of 522 was used to make the 
+results reproducible. The processed datasets were exported as CSV files to a structured directory 
+for further analysis and modeling (@pedregosa2011scikit).
+
+
+![Distribution of Numeric Features by Age Group](../results/figures/fig_numeric_feats.png){#fig-numeric_feats width=80%} 
+
+![Distribution of Categorical Features by Age Group](../results/figures/fig_categorical_feats.png){#fig-categorical_feats width=80%} 
+
+Once we explored the features in the dataset, we started considering how we would build a classification
+model using the data. To give us a sense on how each feature is related to the target class, we prepared a
+correlation matrix below that shows the correlation of the input features as a heatmap:
+
+![Feature-to-Feature Correlation Heatmap](../results/figures/fig_feats_heatmap.png){#fig-feat_corr_heatmap width=80%} 
+
+### Model Definition
+
+We chose the logistic regression modeling approach because of two principal reasons:-
+
+* In addition to a hard prediction, we would get a probability value which will be useful for additional interpretation
+* Using the learned coefficients we will be able to easily interpret the model and determine feature importance
+
+### Pre-processing
+
+We chose to do pre-processing on the input data as follows:-
+
+* We did not have to do any imputation of values because the data set does not contain any missing values
+* We used a `StandardScaler` for the numeric columns `bmi`, `blood_glucose_fasting`, `oral` and `insulin_level`
+* The column `diabetic` is categorical, but contained ordered levels of a subject being diabetic (the spectrum being `No` to `Borderline` and finally `Yes` for diabetic subjects). We therefore used a `OrdinalEncoder` for this column
+* The other categorical columns, `weekly_physical_activity` and `gender`, contain nominal values and so we applied a `OneHotEncoder`
+
+### Hyperparameter Optimization
+
+We had only one hyperparameter to optimize for our logistic regression model. To obtain the best value for 
+the hyperparameter `C`, we used `GridSearchCV`. Our best value was $C = 0.0001$. Based on our exploratory data 
+analysis, we knew that we had a class imbalance and chose to set `class_weight = 'balanced'`. 
+
+In future iterations, we will explore manually adjusting the class weights to see if it would improve the model's performance.
+
+![Optimization of model hyperparameter C](../results/figures/fig_hyperparameter_c.png){#fig-fig_hyperparameter_c width=80%} 
+
+### Model Fitting
+
+Once we obtained the best values for the hyperparameter `C`, we defined a logistic regression model pipeline 
+with the column transformers described above, and a logistic regression object initialized with the best 
+hyperparameter values. We then fitted this estimator on the entire training dataset.
+
+## Results
+### Model Evaluation
+
+Our prediction model performed averagely on test data. The classification metrics show a 
+Macro Average F1 score of `{python} round(model_test_metrics['macro avg']['f1-score'], 2)` and 
+a decent accuracy of `{python} round(model_test_metrics['accuracy'], 2)`. 
+The detailed results are presented in @tbl-metrics below.
+
+```{python}
+#| label: tbl-metrics
+#| tbl-cap: Performance metrics on test data
+
+Markdown(metrics_df.to_markdown())
+```
+
+Looking at the results of the classification for individual classes as shown in @tbl-conf_matrix below, 
+more than half of Senior and Adult categories were correctly classified.
+
+```{python}
+#| label: tbl-conf_matrix
+#| tbl-cap: Confusion matrix of model performance on test data
+
+Markdown(confusion_df.to_markdown())
+```
+
+The results in @tbl-conf_matrix can certainly do with improvement, which we aim to do in the next 
+iteration of building this model. We equally plan to engineer additional features, with the new 
+knowledge we acquired from our recent training in Feature Engineering.
+
+
+## Discussion and conclusion
+
+This was our very first attempt at fitting a classification model to this data set 
+and so the performance is in line with our expectations. There is certainly more that 
+we will explore to improve this model. As a start, we aim to include some new engineered 
+features to improve the performance of this Logistic Regression model. In addition, we will
+review the distribution of the probability values for each class to explore whether 
+we can adjust the default threshold of 50% to capture more cases close to the boundary.
+
+Early on we decided to go straight to use a Logistic Regression model. We are aware that 
+we have additional machine learning model types that we can explore and then compare those results
+with the current results as a baseline. We plan to evaluate K-Nearest Neighbor, and SVC RBF Classifier 
+and Naive Bayes in the next few weeks. 
+
+This model is a good baseline that allows us to continue researching these additional questions.
+
+## References
+
+
