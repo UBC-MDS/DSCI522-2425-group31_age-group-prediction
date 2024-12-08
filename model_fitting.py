@@ -113,7 +113,8 @@ def main(train_data, preprocessor_to, pipeline_to, plot_to, seed):
         y=alt.Y('score', title='Model Score').scale(zero=False),
         color=alt.Color('score_type')
     )
-    plot.save(plot_to, scale_factor=2.0)
+    plot.save(os.path.join(plot_to, "fig_hyperparameter_c.png"),
+              scale_factor=2.0)
 
 if __name__ == '__main__':
     main()
