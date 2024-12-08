@@ -52,7 +52,7 @@ Copy and paste that URL into your browser.
 <img src="img/jupyter-container-web-app-launch-url.png" width=400>
 
 3. To run the analysis,
-open a terminal and run the following commands:
+open a terminal in the jupyterlab and run the following commands:
 
 ```
 python scripts/01_download_data.py \
@@ -73,7 +73,13 @@ python scripts/04_eda_with_validation.py \
 
 python scripts/05_visualize_and_save.py \
 --data_train_path=data/processed/data_train.csv \
---output_dir=results/figures 
+--output_dir=results/figures
+
+python scripts/06_model_fitting.py \
+  --train-data "data/processed/data_train.csv" \
+  --preprocessor-to "results/models/" \
+  --pipeline-to "results/models" \
+  --plot-to "results/figures"
 ```
 
 ### Clean up
