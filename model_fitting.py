@@ -81,7 +81,8 @@ def main(train_data, preprocessor_to, pipeline_to, plot_to, seed):
     )
     
     # Save preprocessor
-    pickle.dump(preprocessor, open(preprocessor_to, 'wb'))
+    with open(os.path.join(preprocessor_to, "age_prediction_preprocessor.pickle"), 'wb') as f:
+        pickle.dump(preprocessor, f)
     
     # Logistic Regression Pipeline
     lgr_classifier = LogisticRegression(max_iter=2000, random_state=seed, class_weight='balanced')
@@ -93,8 +94,8 @@ def main(train_data, preprocessor_to, pipeline_to, plot_to, seed):
     gs_optimize.fit(X_train, y_train)
     
     # Save the pipeline
-    with open(pipeline_to, 'wb') as f:
-        pickle.dump(gs_optimize, f)
+    with open(os.path.join(pipeline_to, "age_prediction_model.pickle"), 'wb') as f:
+        pickle.dump(gs_optimize, f)   
     
     # Plot training vs. CV scores
     train_scores = gs_optimize.cv_results_["mean_train_score"]
