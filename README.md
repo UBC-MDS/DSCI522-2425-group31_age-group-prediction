@@ -51,6 +51,31 @@ Copy and paste that URL into your browser.
 
 <img src="img/jupyter-container-web-app-launch-url.png" width=400>
 
+3. To run the analysis,
+open a terminal and run the following commands:
+
+```
+python scripts/01_download_data.py \
+--url="https://archive.ics.uci.edu/static/public/887/national+health+and+nutrition+health+survey+2013-2014+(nhanes)+age+prediction+subset.zip" \
+--output_dir=data/raw/
+
+python scripts/02_clean_validate_save_data.py \
+--input_path=data/raw/NHANES_age_prediction.csv \
+--output_path=data/processed/cleaned.csv
+
+python scripts/03_split_preprocess_data.py \
+--input_path=data/processed/cleaned.csv \
+--output_dir=data/processed \
+--seed=522
+
+python scripts/04_eda_with_validation.py \
+--data_train_path=data/processed/data_train.csv 
+
+python scripts/05_visualize_and_save.py \
+--data_train_path=data/processed/data_train.csv \
+--output_dir=results/figures 
+```
+
 ### Clean up
 
 - To shut down the container and clean up the resources, 
