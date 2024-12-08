@@ -58,10 +58,9 @@ def main(test_data, pipeline_from, results_to, seed):
     
     # Predict and evaluate
     y_pred_test = trained_pipeline.predict(X_test)
-    cancer_preds = pd.DataFrame({"actual": y_test, "predicted": y_pred_test})
     
     # Save Confusion Matrix as CSV
-    confusion_matrix = pd.crosstab(cancer_preds["actual"], cancer_preds["predicted"])
+    confusion_matrix = pd.crosstab(y_test, y_pred_test, rownames=['Actual'], colnames=['Predicted'])
     write_csv(confusion_matrix, results_to, "confusion_matrix.csv", index=True)
 
     # Save Classification Report as CSV
