@@ -46,10 +46,7 @@ classified_incorrect_total = (
     + confusion_df.loc['Adult', 'Predicted: Senior'])
 
 #metrics
-with open('../results/tables/age_model_report.json', 'rb') as fp:
-    model_test_metrics = json.load(fp)
-
-metrics_df = pd.DataFrame(model_test_metrics).round(3).transpose()
+metrics_df = pd.read_csv("../results/tables/age_model_report.csv", index_col = 0)
 
 #model
 with open('../results/models/age_prediction_model.pickle', 'rb') as fm:
@@ -62,8 +59,8 @@ In this project, we developed a logistic regression model to classify individual
 groups: Senior (65 years and older) and Adult (under 65 years), using various attributes about the individual. 
 The data is from the National Health and Nutrition Examination Survey [@nhanes_age_prediction_subset_887]. The 
 model we developed uses features such as physical and health-related measurements to make predictions. We achieved an 
-overall accuracy of `{python} round(model_test_metrics['accuracy'], 2)` and 
-an F1 score of `{python} round(model_test_metrics['macro avg']['f1-score'], 2)` on the test data. 
+overall accuracy of `{python} round(metrics_df.loc['accuracy', 'f1-score'], 2)` and 
+an F1 score of `{python} round(metrics_df.loc['macro avg', 'f1-score'], 2)` on the test data. 
 It correctly classified 
 `{python} classified_correct_total` cases; 
 `{python} classified_correct_adult` Adults and 
@@ -155,8 +152,8 @@ hyperparameter values. We then fitted this estimator on the entire training data
 ### Model Evaluation
 
 Our prediction model performed averagely on test data. The classification metrics show a 
-Macro Average F1 score of `{python} round(model_test_metrics['macro avg']['f1-score'], 2)` and 
-a decent accuracy of `{python} round(model_test_metrics['accuracy'], 2)`. 
+Macro Average F1 score of `{python} round(metrics_df.loc['macro avg', 'f1-score'], 2)` and 
+a decent accuracy of `{python} round(metrics_df.loc['accuracy', 'f1-score'], 2)`. 
 The detailed results are presented in @tbl-metrics below.
 
 ```{python}
