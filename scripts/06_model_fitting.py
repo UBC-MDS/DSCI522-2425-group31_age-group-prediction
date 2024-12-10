@@ -95,7 +95,8 @@ def main(train_data, preprocessor_to, pipeline_to, plot_to, seed):
     
     # Save the pipeline
     with open(os.path.join(pipeline_to, "age_prediction_model.pickle"), 'wb') as f:
-        pickle.dump(gs_optimize, f)   
+        #save the best estimator
+        pickle.dump(gs_optimize.best_estimator_, f)   
     
     # Plot training vs. CV scores
     train_scores = gs_optimize.cv_results_["mean_train_score"]
