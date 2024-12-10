@@ -81,7 +81,7 @@ python scripts/06_model_fitting.py \
   --plot-to "results/figures"
 
 python scripts/07_model_evaluation.py \
-    --train-data data/processed/data_train.csv \
+    --model-path results/models/age_prediction_model.pickle \
     --test-data data/processed/data_test.csv \
     --results-to results/tables
 
