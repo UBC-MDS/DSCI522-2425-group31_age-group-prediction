@@ -33,10 +33,10 @@ def main(model_path, test_data, results_to):
     """
     # Load the GridSearchCV object
     with open(model_path, 'rb') as f:
-        grid_search = pickle.load(f)
+        model = pickle.load(f)
 
     # Get the best pipeline
-    pipe = grid_search.best_estimator_
+    pipe = model
 
     # Load test data
     data_test = pd.read_csv(test_data)
