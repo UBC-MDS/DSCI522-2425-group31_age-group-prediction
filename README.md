@@ -20,6 +20,9 @@ and is designed for predicting respondents' age. The dataset can be found
 The NHANES dataset collects extensive health and nutritional information from a diverse U.S. population, and this 
 particular subset narrows the focus to selected features hypothesized to correlate strongly with age.
 
+## Report
+The final report can be found [here](https://ubc-mds.github.io/DSCI522-2425-group31_age-group-prediction/reports/age_prediction_report.html).
+
 ## Dependencies
 
 - [Docker](https://www.docker.com/) 
