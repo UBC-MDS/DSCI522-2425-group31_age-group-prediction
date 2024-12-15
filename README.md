@@ -72,7 +72,7 @@ enter the following command in the terminal:
 make all
 ```
 
-5. To view the analysis report navigate to `/reports` directory in the root folder 
+5. To view the analysis report navigate to [`reports`](reports) directory in the root folder 
 and then select `age_prediction_report.pdf`.
 
 ### Clean up
