@@ -11,7 +11,6 @@ import pickle
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.write_csv import write_csv
 
-
 @click.command()
 @click.option('--model-path', type=str, help="Path to the saved GridSearchCV pipeline (pickle file)")
 @click.option('--test-data', type=str, help="Path to test data")
