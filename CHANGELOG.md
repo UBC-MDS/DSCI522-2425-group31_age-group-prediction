@@ -18,7 +18,9 @@ using the [pytest](https://pytest.org/) framework
  
 ### Fixed
 - In the previous version, we were refitting the Logistic Regression 
-model after using `GridSearchCV` to get the optimal hyperparameter values. This has now been corrected in "06_model_fitting.py". We save `best_estimator_` from the `GridSearchCV` object and use it in the subsequent steps.
+model after using `GridSearchCV` to get the optimal hyperparameter values. This has now 
+been corrected in "06_model_fitting.py". We save `best_estimator_` from the `GridSearchCV` 
+object and use it in the subsequent steps.
 
 ## [2.0.0] - 2024-12-08
   
