@@ -1,22 +1,24 @@
 # Change Log
-This file documents all notable changes made for this project.
- 
-The format is based on [Keep a Changelog](http://keepachangelog.com/).
+This file documents all notable changes made for this project. It is 
+based on [Keep a Changelog](http://keepachangelog.com/).
  
 ## [Unreleased] - yyyy-mm-dd (TBD, estimating 2024-12-16)
  
 These are changes we are still working on that are yet to be published.
 
-Highlight: Added unit tests for functions, this change log and various fixes from reviews by the instructors and our peers
+***Highlight for this release***: Added unit tests for functions, this change log and various fixes from reviews by the instructors and our peers
  
 ### Added
-- We abstracted some functions out of the scripts into utility functions in the [src](src) folder and added tests for them. Tests are in [test](test), written using the [pytest](https://pytest.org/) framework
+- We abstracted some functions out of the scripts into utility functions in the [src](src) folder and 
+added tests for them. The tests are in [test](test) folder, written 
+using the [pytest](https://pytest.org/) framework
 - A description of the variables in the data file have been added to the report
  
 ### Changed
  
 ### Fixed
-- In the previous version, we were refitting the Logistic Regression model after using `GridSearchCV` to get the optimal hyperparameter values. This has now been corrected in "06_model_fitting.py". We save `best_estimator_` from the `GridSearchCV` object and use it in the subsequent steps.
+- In the previous version, we were refitting the Logistic Regression 
+model after using `GridSearchCV` to get the optimal hyperparameter values. This has now been corrected in "06_model_fitting.py". We save `best_estimator_` from the `GridSearchCV` object and use it in the subsequent steps.
 
 ## [2.0.0] - 2024-12-08
   
