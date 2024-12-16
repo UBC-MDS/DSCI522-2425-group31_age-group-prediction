@@ -8,17 +8,10 @@ British Columbia.
 
 ## Project Summary
 
-Here we attempt to build a classification model using the Logistic Regression
-algorithm which can predict whether an individual belongs to the senior (≥65 years) age group or 
-the non-senior (<65 years) age group based on specific features. The model utilizes a supervised machine 
-learning algorithm to identify patterns and relationships within the dataset to make accurate predictions.
-
-The dataset used in this project is a subset of the National Health and Nutrition Examination Survey (NHANES) 2013-2014, 
-created by the Centers for Disease Control and Prevention (CDC). The subset was donated on September 21, 2023, 
-and is designed for predicting respondents' age. The dataset can be found 
+In this project, we set out to classify individuals into two age groups—Seniors (65 years and older) and Adults (under 65 years)—using data from the NHANES 2013-2014 survey. The dataset, consisting of 2,278 entries, was carefully preprocessed to ensure it was clean, well-structured, and balanced for analysis. The dataset can be found 
 [here](https://archive.ics.uci.edu/dataset/887/national+health+and+nutrition+health+survey+2013-2014+(nhanes)+age+prediction+subset).
-The NHANES dataset collects extensive health and nutritional information from a diverse U.S. population, and this 
-particular subset narrows the focus to selected features hypothesized to correlate strongly with age.
+
+We developed a logistic regression model that achieved moderate success, with an accuracy of around 73% and a macro average F1 score of 61% (final metrics pending). While the model performed well in classifying many Seniors and Adults, it left room for improvement, particularly in handling edge cases. Moving forward, we plan to refine the model by engineering new features, experimenting with classification thresholds, and exploring alternative algorithms like K-Nearest Neighbors, SVC, and Naive Bayes. This work provides a solid foundation for using machine learning to support smarter healthcare planning and resource allocation.
 
 ## Report
 The final report can be found [here](https://ubc-mds.github.io/DSCI522-2425-group31_age-group-prediction/reports/age_prediction_report.html).
