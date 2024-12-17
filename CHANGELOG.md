@@ -4,8 +4,9 @@ based on [Keep a Changelog](http://keepachangelog.com/).
  
 ## [3.0.0] - 2024-12-16
  
-Added unit tests for functions, this change log and various fixes from reviews by the instructors and our peers
-which are highlighted and linked in the ***Fixed*** section below.
+Added unit tests for functions, created a CHANGELOG (this file) and various fixes from reviews by the 
+instructors and our peers.
+The changes made are described and linked in the ***Fixed*** section below.
  
 ### Added
 - We abstracted some functions out of the scripts into utility functions in the [src](src) folder and 
