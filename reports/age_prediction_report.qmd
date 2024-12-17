@@ -97,7 +97,9 @@ Markdown(meta_df.to_markdown(maxcolwidths = [None, None, 45], \
 
 ```
 
-We noted that target variable exhibited an imbalance with two classes: Adult (84%) and Senior (16%).
+We noted that target variable exhibited an imbalance with two classes: Adult (84%) and Senior (16%). 
+Because of this imbalance as well the differences in decision-making by the Senior group 
+as suggested in (@lockenhoff2016adult), we chose to use th F1 Score as the primary metric for our model.
 
 The data preprocessing involved several steps. Unnecessary columns such as id and age were removed, 
 focusing on features directly relevant to the prediction task. Categorical variables were converted 
