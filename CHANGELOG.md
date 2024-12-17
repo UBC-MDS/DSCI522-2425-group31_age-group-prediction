@@ -36,6 +36,8 @@ with thanks to review by [Shannon](https://github.com/UBC-MDS/data-analysis-revi
 - Altair dependency changed from 'altair-all=5.4.*' to 'altair-all=5.4.1' as per instructor feedback from Week 2
 and also highlighted by peer review from [Shawn](https://github.com/UBC-MDS/data-analysis-review-2024/issues/28#issuecomment-2530404242)
 
+- Added summary in README that includes high-level interpretation of analysis findings, as well 1-2 sentences on what they might mean (at least at a high-level) with thanks to feedback received from the DSCI 522 teaching team from milestone 1.
+
 ### Closed
 
 - We appreciate the first comment from [review by Green-zy](https://github.com/UBC-MDS/data-analysis-review-2024/issues/28#issuecomment-2530385608). However the suggestion is not aligned with the objective of our study.
