@@ -17,6 +17,7 @@ execute:
   echo: false
   warning: false
 bibliography: references.bib
+format-links: false
 ---
 
 ```{python}
