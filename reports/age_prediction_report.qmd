@@ -29,6 +29,11 @@ import json
 ```
 
 ```{python}
+
+# metadata
+meta_df = pd.read_csv("metadata.csv", index_col = 0)
+#meta_df.drop(columns = ['Data Type'], inplace = True)
+
 # read data
 confusion_df = pd.read_csv("../results/tables/confusion_matrix.csv", index_col = 0)
 confusion_df.rename(columns={'Adult': 'Predicted: Adult', 'Senior': 'Predicted: Senior'}, inplace = True)
@@ -79,9 +84,22 @@ We used data from the National Health and Nutrition Examination Survey (NHANES) 
 
 The dataset used for this analysis is the National Health and Nutrition Health Survey 2013-2014 
 (@nhanes_age_prediction_subset_887) Age Prediction Subset. It was obtained from the UCI Machine Learning Repository 
-in ZIP format and extracted for preprocessing. The dataset contains 2,278 entries and 8 features after cleaning 
-and transformations, with the target variable being age_group. Notably, the target variable exhibited an 
-imbalance with two classes: Adult (84%) and Senior (16%).
+in ZIP format and extracted for preprocessing. The dataset contains 2,278 entries and 
+8 features described in @tbl-metadata below.
+
+```{python}
+#| label: tbl-metadata
+#| tbl-cap: Description of the columns in the Age Prediction dataset
+
+Markdown(meta_df.to_markdown(maxcolwidths = [None, None, 45], \
+    tablefmt = 'grid', colalign = ('left', 'left', 'left')) \
+        )
+
+```
+
+We noted that target variable exhibited an imbalance with two classes: Adult (84%) and Senior (16%). 
+Because of this imbalance as well the differences in decision-making by the Senior group 
+as suggested in (@lockenhoff2016adult), we chose to use th F1 Score as the primary metric for our model.
 
 The data preprocessing involved several steps. Unnecessary columns such as id and age were removed, 
 focusing on features directly relevant to the prediction task. Categorical variables were converted 
@@ -160,7 +178,7 @@ The detailed results are presented in @tbl-metrics below.
 #| label: tbl-metrics
 #| tbl-cap: Performance metrics on test data
 
-Markdown(metrics_df.to_markdown())
+Markdown(metrics_df.to_markdown(floatfmt = ['.2f', '.2f', '.2f', '.2f', '.0f']))
 ```
 
 Looking at the results of the classification for individual classes as shown in @tbl-conf_matrix below, 
