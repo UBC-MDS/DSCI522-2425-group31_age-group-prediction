@@ -3,13 +3,15 @@ import os
 import numpy as np
 import pandas as pd
 import altair as alt
-import pickle
 from sklearn.preprocessing import StandardScaler, OrdinalEncoder, OneHotEncoder
 from sklearn.pipeline import make_pipeline
 from sklearn.compose import make_column_transformer
 from sklearn.linear_model import LogisticRegression
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import GridSearchCV, train_test_split
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.persist_object import persist_object
 
 @click.command()
 @click.option('--train-data', type=str, help="Path to training data")
@@ -81,8 +83,9 @@ def main(train_data, preprocessor_to, pipeline_to, plot_to, seed):
     )
     
     # Save preprocessor
-    with open(os.path.join(preprocessor_to, "age_prediction_preprocessor.pickle"), 'wb') as f:
-        pickle.dump(preprocessor, f)
+    #with open(os.path.join(preprocessor_to, "age_prediction_preprocessor.pickle"), 'wb') as f:
+    #pickle.dump(preprocessor, f)
+    persist_object(preprocessor, preprocessor_to, "age_prediction_preprocessor.pickle")
     
     # Logistic Regression Pipeline
     lgr_classifier = LogisticRegression(max_iter=2000, random_state=seed, class_weight='balanced')
@@ -94,9 +97,10 @@ def main(train_data, preprocessor_to, pipeline_to, plot_to, seed):
     gs_optimize.fit(X_train, y_train)
     
     # Save the pipeline
-    with open(os.path.join(pipeline_to, "age_prediction_model.pickle"), 'wb') as f:
-        #save the best estimator
-        pickle.dump(gs_optimize.best_estimator_, f)   
+    #with open(os.path.join(pipeline_to, "age_prediction_model.pickle"), 'wb') as f:
+    #save the best estimator
+    #pickle.dump(gs_optimize.best_estimator_, f)   
+    persist_object(gs_optimize.best_estimator_, preprocessor_to, "age_prediction_model.pickle")
     
     # Plot training vs. CV scores
     train_scores = gs_optimize.cv_results_["mean_train_score"]
