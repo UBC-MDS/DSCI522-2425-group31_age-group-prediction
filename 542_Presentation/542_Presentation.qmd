@@ -3,7 +3,7 @@ title: "Age Group Prediction"
 subtitle: "Group 31"
 format: revealjs
 editor: visual
-author: Ismail Bhinderwala, Rashid Mammadov, Dongchun Chen, Sienko Ikhabi
+author: Ismail (Husain) Bhinderwala, Rashid Mammadov, Dongchun Chen, Sienko Ikhabi
 ---
 
 ## Overview
@@ -48,10 +48,8 @@ author: Ismail Bhinderwala, Rashid Mammadov, Dongchun Chen, Sienko Ikhabi
 
 </figure>
 
-
 # Data Preprocessing and Analysis
 
 # Modelling
 
 # Results
-
