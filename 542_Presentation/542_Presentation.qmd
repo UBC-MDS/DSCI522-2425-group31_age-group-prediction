@@ -1,0 +1,55 @@
+---
+title: "Age Group Prediction"
+subtitle: "Group 31"
+format: revealjs
+editor: visual
+author: Ismail (Husain) Bhinderwala, Rashid Mammadov, Dongchun Chen, Sienko Ikhabi
+---
+
+## Overview
+
+-   Classify individuals into **Senior (65+)** and **Adult (\<65)** age groups using health and physical attributes.
+-   **Class imbalance**, with 16% Senior and 84% Adult.
+-   **Logistic Regression** chosen for interpretability and probability output.
+-   Achieved **f1-score** of **0.61**.
+-   Test **alternative models** and perform **feature engineering**.
+
+## Introduction
+
+[Classifying **seniors (65+)** and **non-seniors (\<65)** improves healthcare planning by addressing **individual health differences**, ensuring **better resource allocation**.]{style="font-size: 0.75em;"}
+
+<figure style="text-align: center;">
+
+![](data/introduction.png){width="65%"}
+
+<figcaption>Image Credit: [Source](https://www150.statcan.gc.ca/n1/pub/11-631-x/11-631-x2016001-eng.htm)</figcaption>
+
+</figure>
+
+## Why does this matters?
+
+[Seniors need more care, but misclassifying them can waste resources since health risks depend on more than just age.]{style="font-size: 0.75em;"}
+
+<figure style="text-align: center;">
+
+![](data/matters.png){width="68%"}
+
+<figcaption>Image Credit: [Source](https://www150.statcan.gc.ca/n1/pub/11-631-x/11-631-x2016001-eng.htm)</figcaption>
+
+</figure>
+
+# The Challenge??!!
+
+## Class Imbalance
+
+<figure style="text-align: center;">
+
+![](data/imbalance.png){width="70%"}
+
+</figure>
+
+# Data Preprocessing and Analysis
+
+# Modelling
+
+# Results
