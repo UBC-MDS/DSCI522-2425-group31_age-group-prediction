@@ -1,0 +1,95 @@
+---
+title: "Data Preprocessing and Analysis"
+format: revealjs
+theme: white
+revealjs:
+  slideNumber: true
+  highlightStyle: github
+  css: styles.css
+---
+
+## Dataset Overview
+
+- **Dataset Source**: National Health and Nutrition Examination Survey (NHANES) 2013-2014.
+- **Provider**: Health Statistics (NCHS) at the Centers for Disease Control (CDC) (2019).
+- **Accessed From**: UCI Machine Learning Repository.
+
+### Key Details
+
+- **Entries**: 2,278 samples.
+- **Features**: 8 attributes (described in Table 1).
+
+---
+
+## Target Variable and Data Preprocessing
+
+<div style="font-size: 0.9em; line-height: 1.2;">
+- Removed unnecessary columns: `id` and `age`.
+- Why we removed `id` and `age`?
+</div>
+
+![Table 1: Description of the columns in the Age Prediction dataset](table.png)
+
+---
+
+## Data Preprocessing Steps
+
+<div style="font-size: 0.9em; line-height: 1.2;">
+- Mapped categorical variables:
+  - **Gender**: 1 → Male, 2 → Female.
+  - **Weekly Physical Activity**: Numeric → “Yes” and “No.”
+  - **Diabetic**: Numeric → “Yes,” “No,” and “Borderline.”
+- Calculated descriptive statistics for numerical features: `bmi`, `blood_glucose_fasting`, `oral`, and `insulin_level`.
+- Preprocessing implemented with Python libraries: NumPy and Pandas.
+</div>
+
+---
+
+## Exploratory Data Analysis (EDA)
+
+<div style="font-size: 0.9em; line-height: 1.2;">
+- **Numerical Features**:
+  - Correlation analysis performed.
+  - Heatmap visualized relationships using Matplotlib.
+- **Categorical Features**:
+  - Examined distributions and noted imbalances in:
+    - `age_group`, `gender`, `diabetic`, and `weekly_physical_activity`.
+  - Example: `diabetic` column:
+    - “No”: Majority.
+    - “Yes”: 21 entries.
+    - “Borderline”: 58 entries.
+</div>
+
+---
+
+## Train-Test Split and Metric Chosen
+
+<div style="font-size: 0.86em; line-height: 1.2;">
+- **Imbalance Noted**:
+  - *Adult*: 84%
+  - *Senior*: 16%
+- **Metric Chosen**: F1 Score
+  - Due to imbalance and decision-making differences in the Senior group.
+
+  ![Figure 1: Distribution of Numeric Features by Age Group](fig_numeric_feats.png)
+
+</div>
+
+
+
+---
+
+## Categorical Features
+
+![Figure 2: Distribution of Categorical Features by Age Group](fig_categorical_feats.png)
+
+---
+
+<div style="font-size: 0.9em; line-height: 1.2;">
+- To understand feature relationships with the target class, we created a **correlation matrix**, visualized as a heatmap below.
+
+</div>
+
+![Figure 3: Feature-to-Feature Correlation Heatmap](fig_feats_heatmap.png)
+
+---
