@@ -4,6 +4,10 @@ subtitle: "Group 31"
 format: revealjs
 editor: visual
 author: Ismail (Husain) Bhinderwala, Rashid Mammadov, Dongchun Chen, Sienko Ikhabi
+from: markdown+emoji
+nocite: |
+  @nhanes_age_prediction_subset_887, @lockenhoff2016adult
+bibliography: ../reports/references.bib
 ---
 
 ## Overview
@@ -53,3 +57,196 @@ author: Ismail (Husain) Bhinderwala, Rashid Mammadov, Dongchun Chen, Sienko Ikha
 # Modelling
 
 # Results
+
+```{python}
+# imports
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+import pickle
+import json
+from sklearn.metrics import classification_report, confusion_matrix
+import altair as alt
+import altair_ally as aly
+import numpy as np
+```
+
+```{python}
+# read data
+confusion_df = pd.read_csv("data/confusion_matrix.csv", index_col = 0)
+#confusion_df.rename(columns={'Adult': 'Predicted: Adult', 'Senior': 'Predicted: Senior'}, inplace = True)
+confusion_df.index.names = ['Actual']
+confusion_df = pd.melt(confusion_df.reset_index(), id_vars='Actual', var_name = 'Predicted', value_name='Number')
+confusion_df['Color'] = np.where(confusion_df['Actual'] == confusion_df['Predicted'], '#2ca02c', '#ff7f0e')
+
+# metrics
+metrics_df = pd.read_csv("data/age_model_report.csv", index_col = 0)
+
+# predicted probabilities
+proba_df = pd.read_csv("data/lr_predictions.csv")
+
+# ROC curve data
+roc_df = pd.read_csv("data/roc_curve.csv")
+```
+
+## Performance Metrics
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+```{python}
+
+# base chart drawing
+confusion_matrix = alt.Chart(confusion_df).mark_rect().encode(
+    x=alt.X('Predicted:N', title= 'Predicted Labels', sort=['Adult', 'Senior'], 
+            axis=alt.Axis(ticks=False, labels=True, labelAngle = 0)),
+    y=alt.Y('Actual:N', title= None, sort=['Adult', 'Senior'], 
+            axis=alt.Axis(ticks=False, labels=True)),
+    color=alt.Color('Color:N', scale=None) 
+)
+
+# include classification results
+text_labels = alt.Chart(confusion_df).mark_text(size=24, fontWeight='bold').encode(
+    x= alt.X('Predicted:N', ),
+    y= alt.Y('Actual:N', ),
+    text='Number:N',
+    color=alt.value('black')
+)
+
+# Combine the base chart with text labels
+chart = confusion_matrix + text_labels
+
+# Display the chart
+chart.properties(
+    width = 350,
+    height = 350
+).configure_axis(
+    labelFontSize=24,
+    titleFontSize=24,
+    labelFontWeight='bold'
+)
+```
+
+:::
+
+::: {.column width="40%"}
+::: {.v-center-container style='display: flex; justify-content: center; align-items: center;'}
+
+
+- Accuracy: **`{python} "{:.2f}".format(metrics_df.loc['accuracy', 'f1-score'])`**
+- Precision (MA): **`{python} "{:.2f}".format(metrics_df.loc['macro avg', 'precision'])`**
+- Recall (MA): **`{python} "{:.2f}".format(metrics_df.loc['macro avg', 'recall'])`**
+- F1-Score(MA): **`{python} "{:.2f}".format(metrics_df.loc['macro avg', 'f1-score'])`**
+
+:::
+:::
+::::
+
+## Distribution of probability values
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+```{python}
+
+pr_dens = alt.Chart(proba_df).transform_density(
+    'proba',
+    as_=['proba', 'density'],  
+    groupby = ['class'],
+).mark_area(opacity=0.4).encode(
+    x = alt.X('proba', title = 'Probability', 
+        #scale = alt.Scale(domain=[0.4, 0.6]),
+        axis=alt.Axis(format='%', grid=False)),
+    y = alt.Y('density:Q', title = None, axis=alt.Axis(grid=False)).stack(False),
+    color = alt.Color('class:N', title = None)
+)
+
+dens_thresh = alt.Chart(
+    pd.DataFrame({'proba': [0.5, 0.5], 'density': [0, 90]})).mark_line(strokeDash=[5,5], color = 'black').encode(
+            alt.X('proba', title = 'Probability',  axis=alt.Axis(format='%')),
+            alt.Y('density', title = None, ),
+)
+
+(pr_dens + dens_thresh).properties(
+    width = 350,
+    height = 350
+).configure_axis(
+    labelFontSize=20,
+    titleFontSize=20,
+    labelFontWeight='bold'
+)
+```
+
+:::
+
+::: {.column width="40%"}
+::: {.v-center-container style='display: flex; justify-content: center; align-items: center;'}
+
+```{python}
+mark_df = roc_df[roc_df['thresholds']<=0.5].sort_values(by = 'thresholds', ascending = False).head(1).copy()
+
+roc_line = alt.Chart(roc_df).mark_line(color = 'red').encode(
+                                                alt.X('fpr', title="False positive rate", axis=alt.Axis(format='%')),
+                                                alt.Y('tpr', title="True positive rate", axis=alt.Axis(format='%')))
+guess_line = alt.Chart(roc_df).mark_line(strokeDash=[5,5], color = 'black').encode(
+                                                                alt.X('thresholds', scale = alt.Scale(domain=[0, 1]), 
+                                                                      title="False positive rate"),
+                                                                alt.Y('thresholds', scale = alt.Scale(domain=[0, 1]), 
+                                                                      title="True positive rate"))
+
+point = alt.Chart(mark_df).mark_point(shape = 'diamond',
+                                    size = 200,
+                                    color = 'blue', 
+                                    filled = True).encode(
+                                                alt.X('fpr', title="False positive rate",  axis=alt.Axis(format='%')),
+                                                alt.Y('tpr', title="True positive rate",  axis=alt.Axis(format='%')))
+
+roc = (roc_line + guess_line + point).properties(
+    width = 350,
+    height = 350,
+)
+
+roc
+# emoji: https://gist.github.com/rxaviers/7360908
+```
+
+:::
+:::
+::::
+
+A **good baseline** model with an ROC-AUC of **0.724**
+
+## What next?
+
+- Different model type:
+    - Support Vector Classifier (SVC)
+    - Random Forest
+    - XGBoost/LightGBM
+    - Neural Network?
+- Feature engineering
+- More data?
+
+## Applications
+
+- Predicting physiological age
+- Regression: age-related biomarkers
+- In public health, monitoring aging trends
+    - By time or geography
+
+::: {.notes}
+biomarkers
+Identify factors that accurately reflect a subject's physiological age
+Would be more relevant for certain health conditions than chronological age
+:::
+
+## Group 31: Self-evaluation
+
+- Model development can be improved :bike: &#8594; :rocket:
+- Objectives met
+    - Created a data science workflow :trophy:
+    - Learned a lot :book:
+- Great team :muscle:
+
+## References
