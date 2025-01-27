@@ -1,0 +1,51 @@
+---
+title: "Modeling"
+format: 
+    revealjs:
+      css: custom.css
+---
+
+## Why Logistic Regression? {.smaller}
+- **Key Advantages**
+  - Interpretable coefficients reveal feature importance.
+  - Outputs probabilities, enabling threshold adjustment.
+- **Relevance**
+  - Ideal for binary classification (Adult vs. Senior).
+  - Handles imbalanced data using `class_weight=balanced`.
+- **Why Not Others?**
+  - Simple and interpretable baseline model.
+  - Computationally lightweight compared to complex models like SVM or Random Forest.
+
+
+## Preprocessing {.smaller}
+- Preprocessing Steps:
+  - Numeric Variables:
+    - Standardized using **StandardScaler**.
+  - Categorical Variables:
+    - **OrdinalEncoder** for ordered variables.
+    - **OneHotEncoder** & **SimpleImputer** for nominal variables.
+
+![](img/preprocessor.png){width=50% style="display: block; margin: 0 auto;"}
+
+## Model Setup and Tuning {.smaller}
+
+![](img/model.png)
+
+- Build a pipeline with preprocessor and logistic regression.
+- Hyperparameter tuning:
+  - **GridSearchCV** for *C* across $10^{-6}$ to $10^5$
+  - 10-fold cross-validation for robust evaluation.
+
+
+## Optimization Outcome
+- Best C: 0.0001
+
+![](img/fig_hyperparameter_c.png){width=270 style="display: block; margin: 0 auto;"}
+
+
+## Feature Importance {.smaller}
+
+![](img/feature_importance.png){width=200 style="display: block; margin: 0 auto;"}
+
+- Higher OGTT results (lower glucose tolerance), Higher fasting glucose and No engagement in weekly physical activity correlate with Senior.
+- Small impact of gender.
